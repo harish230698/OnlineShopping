@@ -1,0 +1,105 @@
+﻿@model IEnumerable<OnlineShopping.Models.LaptopModel>
+
+@{
+    ViewData["Title"] = "Laptop";
+}
+<style>
+    .image {
+        opacity: 1;
+        display: block;
+        width: 100px;
+        height: 100px;
+        transition: .5s ease;
+        backface-visibility: hidden;
+    }
+
+        .image:hover {
+            opacity: 0.3;
+        }
+
+    .name {
+        color: black;
+        text-decoration: none;
+    }
+
+        .name:hover {
+            text-decoration: underline;
+            color: white;
+            border: 1px solid black;
+            padding: 10px;
+            background: #808080;
+        }
+</style>
+@*<div>
+    <h1>Index</h1>
+    <button id="btnProceedtoBuy" style="float:right;top:50px">Proceed to Buy</button>
+</div>*@
+<div style="text-align:right"><label id="lblCount"></label></div>
+<script type="text/javascript">
+    function AddtoCart(id, btn) {
+        //debugger;
+
+        var lblcount = document.getElementById("lblCount");
+
+        // this.innerHTML = "Added";
+        if (lblcount.innerHTML == "")
+            lblcount.innerHTML = 1;
+        else
+            lblcount.innerHTML = parseInt(lblcount.innerHTML) + 1;
+    }
+
+</script>
+<table class="table">
+    <thead>
+        <tr>
+            <th style="visibility:hidden">
+                @Html.DisplayNameFor(model => model.SNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specification)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="visibility:hidden">
+                    @Html.DisplayFor(modelItem => item.SNo)
+                </td>
+            
+                <td>
+                    <a class="image" title="Click To View" href="@Url.Action("Details","Laptop",new { id = item.SNo })"><img src="~/images/@Html.DisplayFor(modelItem => item.ImagePath)" width="100px" height="100px" /></a>
+                </td>
+           
+                <td>
+                    <a class="name" title="Click To View" href="@Url.Action("Details","Laptop",new { id = item.SNo })">@Html.DisplayFor(modelItem => item.ModelName) </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Specification)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+           
+
+            </tr>
+        }
+    </tbody>
+</table>

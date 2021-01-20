@@ -1,0 +1,160 @@
+﻿@model IEnumerable<OnlineShopping.Models.LaptopModel>
+@*@{
+        ViewData["Title"] = "PlaceOrder";
+    }*@
+<style>
+    form {
+        margin: 0 auto;
+    }
+
+    .value-button {
+        display: inline-block;
+        border: 1px solid #ddd;
+        margin: 0px;
+        width: 40px;
+        height: 46px;
+        text-align: center;
+        padding: 11px 0;
+        background: #eee;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        .value-button:hover {
+            cursor: pointer;
+        }
+
+    form #decrease {
+        margin-right: -4px;
+        border-radius: 8px 0 0 8px;
+    }
+
+    form #increase {
+        margin-left: -4px;
+        border-radius: 0 8px 8px 0;
+    }
+
+    form #input-wrap {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    input#number {
+        text-align: center;
+        border: none;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        margin: 0px;
+        width: 40px;
+        height: 46px;
+    }
+    .total {
+        float: right;
+        padding-right: 210px;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+<script>
+    function increaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('number').value = value;
+    }
+
+    function decreaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 1 ? value = 1 : '';
+        value--;
+        document.getElementById('number').value = value;
+    }
+</script>
+@*<div>
+        @Html.ActionLink("Buy Now", "ProceedToBuy", "PlaceOrder")
+    </div>*@
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.SNo)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelName)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Specification)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.color)
+                </th>*@
+            <th>
+                Quantity
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.SNo)
+                    </td>*@
+                <td>
+                    <img src="~/images/@Html.DisplayFor(modelItem => item.ImagePath)" width="100px" height="100px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModelName)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Specification)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.color)
+                    </td>*@
+                <td>
+                    <form>
+                        <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                        <input type="number" id="number" value="1" />
+                        <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                    </form>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "PlaceOrder", "PlaceOrder", new { id = item.SNo, val = "Remove" })
+                </td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<div class="total"><b>Total: &nbsp;  &nbsp; &nbsp;  ₹117000</b></div>
+<br />
+<br />
+
+<a href="@Url.Action("ProceedToBuy","PlaceOrder")" class="btn btn-info btn-lg" style="float:right">
+    <span>
+        Checkout
+    </span>
+    <i class="fa fa-angle-double-right"></i>
+</a>

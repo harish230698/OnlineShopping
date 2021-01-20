@@ -1,0 +1,99 @@
+﻿@model OnlineShopping.Models.LaptopModel
+
+@*@{
+    ViewData["Title"] = "Details";
+}*@
+
+<h1>Details</h1>
+<script type="text/javascript">
+    function AddtoCart(id, btn) {
+        //debugger;
+
+        var lblcount = document.getElementById("lblCount");
+
+        // this.innerHTML = "Added";
+        if (lblcount.innerHTML == "")
+            lblcount.innerHTML = 1;
+        else
+            lblcount.innerHTML = parseInt(lblcount.innerHTML) + 1;
+    }
+
+</script>
+<div>
+    <h4>LaptopModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2" style="visibility:hidden">
+            @Html.DisplayNameFor(model => model.SNo)
+        </dt>
+        <dd class="col-sm-10"style="visibility:hidden">
+            @Html.DisplayFor(model => model.SNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Html.DisplayFor(model => model.ImagePath)" width="100px" height="100px" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ModelName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModelName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Specification)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Specification)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.color)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.color)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            <b>Qty</b>
+        </dt>
+        <dd class="col-sm-10">
+            <select id="Quantity" name="Quantity">
+
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="4">5</option>
+                <option value="4">6</option>
+                <option value="4">7</option>
+                <option value="4">8</option>
+                <option value="4">9</option>
+                <option value="4">10</option>
+            </select>
+        </dd>
+    </dl>
+</div>
+<div>
+
+    @*@Html.ActionLink( "Add To Cart","PlaceOrder","PlaceOrder", new { id = Model.SNo }) |*@
+    @*<button id="btnAddCart" onclick="javacript:AddtoCart(@Html.DisplayFor(modelItem => item.SNo),this)">Add to Cart</button>*@
+    <a href="@Url.Action("PlaceOrder","PlaceOrder",  new { id = Model.SNo, val = "Add" })" class="=btn btn-info btn-lg">
+        
+        <span>
+            Add To Cart
+        </span>
+        <i class="fa fa-angle-double-right"></i>
+    </a> |
+    <a href="@Url.Action("Index","Laptop")" class="btn btn-info btn-lg" >
+        <span>
+            Back To List
+        </span>
+        <i class="fa fa-angle-double-right"></i>
+    </a>
+</div>
